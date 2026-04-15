@@ -6,7 +6,9 @@ Report Author : Met4man
 
 This task involved performing security testing on a sample web application to identify common vulnerabilities. The following types of attacks were tested:
 ---
+
 #Tools used:
-1.Burpsuite
-2.Developer tools 
-3. live vulnerable website called ztw26 https://ztw.ctbb.show/#home
+- Burpsuite
+- Developer tools
+- live vulnerable website called ztw26 https://ztw.ctbb.show/#home
+<img width="1817" height="956" alt="image" src="https://github.com/user-attachments/assets/60bc2bec-4be5-4c45-b7dc-2f3a9baa0445" />
