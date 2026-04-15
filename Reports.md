@@ -19,24 +19,70 @@ XSS Finding 10: Stored XSS via marquee Tag with onstart Event in Message Box
 
 # Summary 
 
-While testing the target web app for security issues, I found critical SQL Injection (SQLi) vulnerabilities with the help of automated tools. The main concern lies in the GET parameter id, which is exposed to several SQLi attack patterns. If exploited, this could lead to unauthorized access to the database, data leaks, or even affect the overall integrity of the application.
+While testing the target web app for security issues, I found critical Insecure Direct Object Reference (IDOR) vulnerabilities with the help of automated tools. this could lead to unauthorized access to the database, data leaks, or even affect the overall integrity of the application.
 
 Target Details
-Component	Details
-Web Server OS	Linux (Debian)
-Web Server Technology	Apache 2.4.63
-Database	MySQL (MariaDB 5.0.12+)
-Testing Tool	SQLMap
-Request file used	login_request.txt
-Vulnerability Info
-1. Vulnerable Parameter
+
+| Component | Details |
+| :-- | :-- |
+| Host Domain | ztw.ctbb.show |
+| Web Server Technology | nginx/1.24.0 |
+| Testing Tool | Burpsuite & Developer Tools |
+| Request file used | login_request.txt |
+
+# So What is IDOR?
+
+Insecure Direct Object Reference (IDOR) is a type of access control vulnerability where an application exposes internal object identifiers (like user IDs, file names, or database keys) and fails to properly verify whether the user is authorized to access them.
+
+### 1. Vulnerable Parameter
 Parameter: id (GET request)
-Location: Observed in login_request.txt( It contain the raw HTTP request from the sqli page in DVWA ) during automated scanning
-2. Injection Types Confirmed
+Location: Observed in the GET Request URL( If a user can change a parameter and access someone else’s data → IDOR exists).
+
+What was done
+  - Generated credentials and logged in into the lab.
+
+Screenshot:
+<img width="1272" height="662" alt="image" src="https://github.com/user-attachments/assets/d368d84f-e2e2-4f40-ae8e-3022616f144a" />
+
+---
+  - Identified user/object id parameter that was initially 4 and changed to 6.
+
+ Screenshot:
+
+
+<img width="1523" height="791" alt="image" src="https://github.com/user-attachments/assets/4e2f8794-b29b-472f-b018-c5fe6bee21c7" />
+<img width="1271" height="663" alt="image" src="https://github.com/user-attachments/assets/aa435314-83f2-4ca5-8a8a-dc5994b91d51" />
+
+
+# Output Observed:
+
+After modifying the user id to 6 we can view a different user's senitive data.
+
+# Exposed Sensitive Data
+
+| Field      | Value                         |
+|------------|-------------------------------|
+| ID         | 6                             |
+| First Name | Frank                         |
+| Last Name  | Smith                         |
+| Email      | frank.johnson@testmail.org    |
+| Role       | user                          |
+| Phone      | 555-6966                      |
+| Password   | e2a9aa7346cdc4ff              |
+| Join Date  | 2025-08-07                    |
+
+Screenshot
+
+<img width="1258" height="746" alt="image" src="https://github.com/user-attachments/assets/c8250577-6b7d-40e3-beab-aea8f9cd1d15" />
+
+
+
+
+3. Injection Types Confirmed
 Method	Description	Example Payload
 Time-based Blind	Server response delayed if injection is successful.	id=admin' AND (SELECT SLEEP(5)) AND 'ZIVL'='ZIVL&Submit=Submit
 UNION-based Injection	Allows extraction of data by combining SELECT results.	id=admin' UNION ALL SELECT CONCAT(...hex...),NULL-- -&Submit=Submit
-3. Technical Evidence
+4. Technical Evidence
 SQLMap confirmed the backend is MySQL (MariaDB fork).
 The vulnerable endpoint responds positively to both time-based and UNION query payloads.
 Affected parameter is verified to be injectable using multiple techniques.
