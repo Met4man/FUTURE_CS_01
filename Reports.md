@@ -2,7 +2,7 @@
 ---
 - [1. IDOR - Using BurpSuite](#1-IDOR-using-BurpSuite)
 - [2.Cross-Site Scripting (XSS)](#2-cross-site-scripting-xss)
-- [3.Broken Access Control](#3.-Broken-Access-Control)
+- [3.Broken Access Control](#3.Broken-Access-Control)
 
 # 1. IDOR using BurpSuite
 
