@@ -2,6 +2,7 @@
 ---
 - [1. IDOR - Using BurpSuite](#1-IDOR-using-BurpSuite)
 - [2.Cross-Site Scripting (XSS)](#2-cross-site-scripting-xss)
+- [3.Broken Access Control](#3.-Broken-Access-Control)
 
 # 1. IDOR using BurpSuite
 
@@ -103,6 +104,15 @@ XSS vulnerabilities allow attackers to inject and execute malicious scripts in a
 
 <img width="1387" height="517" alt="image" src="https://github.com/user-attachments/assets/0a13be58-2ada-48bf-82e5-e5d282f6d44c" />
 
+# 3. Broken Access Control 
+
+---
+
+# What is Broken Access Control?
+Broken Access Control occurs when an application enforces restrictions only on the client-side (in the browser) but not on the server. A user can bypass these UI restrictions to perform actions they shouldn't be allowed to do.
+
+*** Example ***
+You have a "Read-Only" role. The buttons to edit and delete are grayed out in the UI, but the server doesn't actually check your role—so if you re-enable the buttons, the actions work. 
 
 
 
