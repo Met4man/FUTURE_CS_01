@@ -1,5 +1,11 @@
 # Vulnerability Assessment Report for a live Website.
 Report Author : Met4man
+
+
+<img width="1463" height="781" alt="image" src="https://github.com/user-attachments/assets/9a37ed41-0d3b-46a2-a311-95cb47693a6e" />
+
+
+
 # Task 1 : Overview
 
 
